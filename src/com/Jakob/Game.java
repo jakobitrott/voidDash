@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 /**
+ * VOID DASH
  * Created by jakob on 02/08/2017.
+ *
  */
 public class Game extends Canvas implements Runnable {
 
@@ -52,7 +54,7 @@ public class Game extends Canvas implements Runnable {
             }
             if (running)
                 render();
-            frames++;
+            frames++
 
             if (System.currentTimeMillis() - timer > 1000) { //1 second has passed
                 timer += 1000;
