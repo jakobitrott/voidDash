@@ -2,11 +2,11 @@ package com.Jakob;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 /**
  * VOID DASH
  * Created by jakob on 02/08/2017.
- *
  */
 public class Game extends Canvas implements Runnable {
 
@@ -17,8 +17,20 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private Thread thread;
 
+    private Random random;
+    private Handler handler;
+
     public Game() {
         new Window(WIDTH, HEIGHT, "VoidDa$h", this);
+
+        handler = new Handler(); //
+
+        random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            handler.addObject(new Player(random.nextInt(WIDTH),random.nextInt(HEIGHT),ID.Player));
+        }
+
     }
 
     public synchronized void start() {
@@ -38,16 +50,41 @@ public class Game extends Canvas implements Runnable {
 
 
     public void run() { //game loop
+        /*
+         The Setup
+         ------------
+         lastTime is as start time to measure amount of time passed
+         amountOfTicks is the number of ticks per second
+         ns is the number of nanoseconds allowed between ticks
+         timer is used at the start time for measuring 1 second
+         frames if the number of frames per second (calls to render)
+
+          */
+
+
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
+
+          /*
+
+         The Game Loop
+         -------------
+         While the game is running
+         - update delta with the amount of time passed since the LAST ITERATION of the loop
+         - while we're behind on game ticks --> make the game tick
+         - redraw the screen and increase the fps counter by 1
+         - finally if 1 SECOND has passed
+         - Display the number of FPS and reset the counter to ZERO
+          */
+
         while (running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
-            lastTime += now;
+            lastTime = now;
             while (delta >= 1) {
                 tick();
                 delta--;
@@ -62,33 +99,11 @@ public class Game extends Canvas implements Runnable {
                 frames = 0;
             }
         }
-        /*
-         The Setup
-         ------------
-         lastTime is as start time to measure amount of time passed
-         amountOfTicks is the number of ticks per second
-         ns is the number of nanoseconds allowed between ticks
-         timer is used at the start time for measuring 1 second
-         frames if the number of frames per second (calls to render)
 
-
-         The Game Loop
-         -------------
-         While the game is running
-         - update delta with the amount of time passed since the LAST ITERATION of the loop
-         - while we're behind on game ticks --> make the game tick
-         - redraw the screen and increase the fps counter by 1
-         - finally if 1 SECOND has passed
-         - Display the number of FPS and reset the counter to ZERO
-
-
-
-
-          */
     }
 
     private void tick() {
-
+        handler.tick();
     }
 
     private void render() {
@@ -99,8 +114,10 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
-        graphics.setColor(Color.red);
+        graphics.setColor(Color.black);
         graphics.fillRect(0, 0, WIDTH, HEIGHT);
+
+        handler.render(graphics);
 
         graphics.dispose();
         bufferStrategy.show();
@@ -111,3 +128,4 @@ public class Game extends Canvas implements Runnable {
         new Game();
     }
 }
+
