@@ -54,7 +54,7 @@ public class Game extends Canvas implements Runnable {
             }
             if (running)
                 render();
-            frames++
+            frames++;
 
             if (System.currentTimeMillis() - timer > 1000) { //1 second has passed
                 timer += 1000;
