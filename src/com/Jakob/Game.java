@@ -19,6 +19,7 @@ public class Game extends Canvas implements Runnable {
 
     private Random random;
     private Handler handler;
+    private HUD hud;
 
     public Game() {
 
@@ -28,12 +29,14 @@ public class Game extends Canvas implements Runnable {
 
         new Window(WIDTH, HEIGHT, "VoidDa$h", this);
 
+        hud = new HUD();
 
         random = new Random();
 
 
-            handler.addObject(new Player((WIDTH/2  - 32),(HEIGHT/2 - 32),ID.Player));
-         handler.addObject(new Player((WIDTH/2  + 64),(HEIGHT/2 - 32),ID.Player2));
+        handler.addObject(new Player((WIDTH / 2 - 32), (HEIGHT / 2 - 32), ID.Player));
+        handler.addObject(new BasicEnemy((random.nextInt(WIDTH)), random.nextInt(HEIGHT), ID.BasicEnemy));
+        // handler.addObject(new Player((WIDTH/2  + 64),(HEIGHT/2 - 32),ID.Player2));
 
 
     }
@@ -55,6 +58,8 @@ public class Game extends Canvas implements Runnable {
 
 
     public void run() { //game loop
+        this.requestFocus(); //don't have to click window in order to use controls
+
         /*
          The Setup
          ------------
@@ -109,6 +114,7 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
+        hud.tick();
     }
 
     private void render() {
@@ -123,10 +129,19 @@ public class Game extends Canvas implements Runnable {
         graphics.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(graphics);
+        hud.render(graphics);
 
         graphics.dispose();
         bufferStrategy.show();
 
+    }
+    public static int clamp(int value, int minimumValue, int maximumValue) {
+        if (value >= maximumValue) {
+            return (value = maximumValue);
+        } else if (value <= minimumValue) {
+            return (value = minimumValue);
+        } else
+            return value;
     }
 
     public static void main(String[] args) {

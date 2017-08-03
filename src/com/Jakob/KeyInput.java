@@ -25,14 +25,14 @@ public class KeyInput extends KeyAdapter {
             if (tempObject.getId() == ID.Player) {
                 //key events for Player 1
 
-                if (key == KeyEvent.VK_W) tempObject.setvY(tempObject.getvY() - 1);
-                if (key == KeyEvent.VK_S) tempObject.setvY(tempObject.getvY() + 1);
-                if (key == KeyEvent.VK_D) tempObject.setvX(tempObject.getvX() + 1);
-                if (key == KeyEvent.VK_A) tempObject.setvX(tempObject.getvX() - 1);
+                if (key == KeyEvent.VK_W) tempObject.setvY(-5);
+                if (key == KeyEvent.VK_S) tempObject.setvY(+5);
+                if (key == KeyEvent.VK_D) tempObject.setvX(+5);
+                if (key == KeyEvent.VK_A) tempObject.setvX(-5);
             }
 
 
-            //Player 2 multithreading??
+           /* //Player 2 multithreading??
             if (tempObject.getId() == ID.Player2) {
                 //key events for Player 1
 
@@ -41,7 +41,7 @@ public class KeyInput extends KeyAdapter {
                 if (key == KeyEvent.VK_RIGHT) tempObject.setvX(tempObject.getvX() + 1);
                 if (key == KeyEvent.VK_LEFT) tempObject.setvX(tempObject.getvX() - 1);
             }
-
+*/
 
 
 
@@ -62,7 +62,7 @@ public class KeyInput extends KeyAdapter {
                 */
         }
 
-
+    if(key == KeyEvent.VK_ESCAPE) System.exit(1);
     }
 
     public void keyReleased(KeyEvent e) {
@@ -81,7 +81,7 @@ public class KeyInput extends KeyAdapter {
 
 
             //Player 2 multithreading??
-            if (tempObject.getId() == ID.Player2) {
+          /*  if (tempObject.getId() == ID.Player2) {
                 //key events for Player 1
 
                 if (key == KeyEvent.VK_UP) tempObject.setvY(0);
@@ -89,7 +89,7 @@ public class KeyInput extends KeyAdapter {
                 if (key == KeyEvent.VK_RIGHT) tempObject.setvX(0);
                 if (key == KeyEvent.VK_LEFT) tempObject.setvX(0);
             }
-
+*/
 
         }
 
