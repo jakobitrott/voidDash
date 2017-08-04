@@ -12,15 +12,19 @@ public abstract class GameObject {
     protected ID id;
     protected int vX,vY; //velocity
 
+    private Handler handler;
 
-    public GameObject(int x, int y, ID id) {
+    public GameObject(int x, int y, ID id,Handler handler) {
         this.x = x;
         this.y = y;
         this.id = id;
+        this.handler =handler;
+        handler.addObject(this);
     }
 
     public abstract void tick();
     public abstract void render(Graphics graphics);
+    public abstract Rectangle getBounds();
 
 
     public int getX() {
