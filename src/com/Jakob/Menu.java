@@ -12,10 +12,12 @@ public class Menu extends MouseAdapter {
     private Game game;
     private Handler handler;
     private Random random = new Random();
+    private HUD hud;
 
-    public Menu(Game game, Handler handler) {
+    public Menu(Game game, Handler handler, HUD hud) {
         this.game = game;
         this.handler = handler;
+        this.hud = hud;
     }
 
     public void mousePressed(MouseEvent event) {
@@ -28,20 +30,25 @@ public class Menu extends MouseAdapter {
             //Play
             if (mouseOver(mouseX, mouseY, 220, 150, 200, 64)) {
                 game.gameState = Game.STATE.Game;
+
                 new Player((Game.WIDTH / 2 - 32), (Game.HEIGHT / 2 - 32), ID.Player, handler);
+                handler.clearEnemies();
 
                 new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
+
+                AudioPlayer.getSound("menu_sound").play();
             }
 
             //help button
             if (mouseOver(mouseX, mouseY, 220, 250, 200, 64)) {
                 game.gameState = Game.STATE.Help;
-
+                AudioPlayer.getSound("menu_sound").play();
             }
 
 
             //quit button
             if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
+                AudioPlayer.getSound("menu_sound").play();
                 System.exit(1);
 
             }
@@ -50,7 +57,22 @@ public class Menu extends MouseAdapter {
         if (game.gameState == Game.STATE.Help) {
             if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
                 game.gameState = Game.STATE.Menu;
+                AudioPlayer.getSound("menu_sound").play();
                 return;
+            }
+        }
+
+        if (game.gameState == Game.STATE.End) {
+
+            if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
+                game.gameState = Game.STATE.Game;
+                AudioPlayer.getSound("menu_sound").play();
+                hud.setLevel(1);
+                hud.setScore(0);
+                new Player((Game.WIDTH / 2 - 32), (Game.HEIGHT / 2 - 32), ID.Player, handler);
+                handler.clearEnemies();
+                new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
+
             }
         }
 
@@ -82,7 +104,7 @@ public class Menu extends MouseAdapter {
 
             graphics.setFont(font);
             graphics.setColor(Color.white);
-            graphics.drawString("Menu", 250, 80);
+            graphics.drawString("Void_Dash", 200, 80);
 
             graphics.setFont(font2);
             graphics.setColor(Color.white);
@@ -101,7 +123,7 @@ public class Menu extends MouseAdapter {
             graphics.drawString("Quit", 280, 395);
         } else if (game.gameState == Game.STATE.Help) {
             Font font = new Font("arial", 1, 50);
-            Font font2 = new Font("arial",1,30);
+            Font font2 = new Font("arial", 1, 30);
             Font font3 = new Font("arial", 1, 40);
 
             graphics.setFont(font);
@@ -112,14 +134,35 @@ public class Menu extends MouseAdapter {
             graphics.setFont(font2);
             graphics.setColor(Color.red);
             graphics.drawString("Use WASD to move", 180, 200);
-            graphics.drawString("Avoid enemies at all costs!",180,250);
-
+            graphics.drawString("Avoid enemies at all costs!", 180, 250);
 
 
             graphics.setFont(font3);
             graphics.setColor(Color.white);
             graphics.drawRect(220, 350, 200, 64);
             graphics.drawString("Back", 280, 395);
+
+        }
+        else if (game.gameState == Game.STATE.End) {
+            Font font = new Font("arial", 1, 50);
+            Font font2 = new Font("arial", 1, 30);
+            Font font3 = new Font("arial", 1, 40);
+
+            graphics.setFont(font);
+            graphics.setColor(Color.white);
+            graphics.drawString("GAMEOVER", 180, 80);
+
+
+            graphics.setFont(font2);
+            graphics.setColor(Color.red);
+            graphics.drawString("You lost with a score of: " + hud.getScore() , 120, 200);
+
+
+
+            graphics.setFont(font2);
+            graphics.setColor(Color.white);
+            graphics.drawRect(220, 350, 200, 64);
+            graphics.drawString("Try Again?", 245, 395);
 
         }
 

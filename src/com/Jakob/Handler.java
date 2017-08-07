@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * Created by jakob on 02/08/2017.
  */
 public class Handler {
-
+Game game;
     LinkedList<GameObject> gameObject = new LinkedList<GameObject>(); //list of gameObjects within the game
 
     public void tick() {
@@ -26,6 +26,13 @@ public class Handler {
                 removeObject(tempObject);
                 i--;
             }
+            if(game.gameState == Game.STATE.End){
+                if(tempObject.getId() == ID.Player){
+                    removeObject(tempObject);
+                    i--;
+                }
+            }
+
 
         }
     }
