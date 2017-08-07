@@ -17,7 +17,7 @@ public class Trail extends GameObject {
 
     //life is a value between 0.01 and 0.1
 
-    public Trail(int x, int y, ID id, Color color, int width, int height, float life, Handler handler) {
+    public Trail(float x, float y, ID id, Color color, int width, int height, float life, Handler handler) {
         super(x, y, id,handler);
         this.handler = handler;
         this.color = color;
@@ -42,7 +42,7 @@ public class Trail extends GameObject {
         graphics2D.setComposite(makeTransparent(alpha));
 
         graphics.setColor(color);
-        graphics.fillRect(x, y, width, height);
+        graphics.fillRect((int)x, (int)y, width, height);
 
         graphics2D.setComposite(makeTransparent(1));
 

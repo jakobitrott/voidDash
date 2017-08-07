@@ -14,8 +14,8 @@ public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 640, HEIGHT = (WIDTH / 12) * 9;
 
-    private boolean running = false;
     private Thread thread;
+    private boolean running = false;
 
     private Random random;
     private Handler handler;
@@ -39,7 +39,8 @@ public class Game extends Canvas implements Runnable {
         //handler.addObject(new BasicEnemy((random.nextInt(WIDTH)), random.nextInt(HEIGHT), ID.BasicEnemy,handler));
 
         new Player((WIDTH / 2 - 32), (HEIGHT / 2 - 32), ID.Player, handler);
-        new BasicEnemy(random.nextInt(Game.WIDTH),random.nextInt(Game.HEIGHT), ID.BasicEnemy,handler);
+
+        new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
 
         // handler.addObject(new Player((WIDTH/2  + 64),(HEIGHT/2 - 32),ID.Player2));
 
@@ -142,7 +143,7 @@ public class Game extends Canvas implements Runnable {
 
     }
 
-    public static int clamp(int value, int minimumValue, int maximumValue) {
+    public static float clamp(float value, float minimumValue, float maximumValue) {
         if (value >= maximumValue) {
             return (value = maximumValue);
         } else if (value <= minimumValue) {

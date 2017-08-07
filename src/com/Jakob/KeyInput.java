@@ -9,10 +9,15 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
+    private boolean[] keyDown = new boolean[4]; //fix sticky keys
 
     public KeyInput(Handler handler) {
 
         this.handler = handler;
+        keyDown[0] = false;
+        keyDown[1] = false;
+        keyDown[2] = false;
+        keyDown[3] = false;
     }
 
 
@@ -25,10 +30,10 @@ public class KeyInput extends KeyAdapter {
             if (tempObject.getId() == ID.Player) {
                 //key events for Player 1
 
-                if (key == KeyEvent.VK_W) tempObject.setvY(-5);
-                if (key == KeyEvent.VK_S) tempObject.setvY(+5);
-                if (key == KeyEvent.VK_D) tempObject.setvX(+5);
-                if (key == KeyEvent.VK_A) tempObject.setvX(-5);
+                if(key == KeyEvent.VK_W) { tempObject.setvY(-5); keyDown[0] = true;  }
+                if(key == KeyEvent.VK_S) { tempObject.setvY(5); keyDown[1] = true; }
+                if(key == KeyEvent.VK_D) { tempObject.setvX(5); keyDown[2] = true; }
+                if(key == KeyEvent.VK_A) { tempObject.setvX(-5); keyDown[3] = true; }
             }
 
 
@@ -73,10 +78,12 @@ public class KeyInput extends KeyAdapter {
             if (tempObject.getId() == ID.Player) {
                 //key events for Player 1
 
-                if (key == KeyEvent.VK_W) tempObject.setvY(0);
-                if (key == KeyEvent.VK_S) tempObject.setvY(0);
-                if (key == KeyEvent.VK_D) tempObject.setvX(0);
-                if (key == KeyEvent.VK_A) tempObject.setvX(0);
+                if(key == KeyEvent.VK_W) keyDown[0] = false; //tempObject.setVelY(0);
+                if(key == KeyEvent.VK_S) keyDown[1] = false; //tempObject.setVelY(0);
+                if(key == KeyEvent.VK_D) keyDown[2] = false; //tempObject.setVelX(0);
+                if(key == KeyEvent.VK_A) keyDown[3] = false; //tempObject.setVelX(0);
+                if(!keyDown[0] && !keyDown[1]) tempObject.setvY(0);
+                if(!keyDown[2] && !keyDown[3]) tempObject.setvX(0);
             }
 
 

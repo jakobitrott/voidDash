@@ -8,13 +8,13 @@ import java.util.ArrayList;
  */
 public abstract class GameObject {
 
-    protected  int x,y; //protected means it can only be accessed by an object that inherits GameObject
+    protected  float x,y; //protected means it can only be accessed by an object that inherits GameObject
     protected ID id;
-    protected int vX,vY; //velocity
+    protected float vX,vY; //velocity
 
     private Handler handler;
 
-    public GameObject(int x, int y, ID id,Handler handler) {
+    public GameObject(float x, float y, ID id,Handler handler) {
         this.x = x;
         this.y = y;
         this.id = id;
@@ -27,7 +27,7 @@ public abstract class GameObject {
     public abstract Rectangle getBounds();
 
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
@@ -35,7 +35,7 @@ public abstract class GameObject {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -51,7 +51,7 @@ public abstract class GameObject {
         this.id = id;
     }
 
-    public int getvX() {
+    public float getvX() {
         return vX;
     }
 
@@ -59,7 +59,7 @@ public abstract class GameObject {
         this.vX = vX;
     }
 
-    public int getvY() {
+    public float getvY() {
         return vY;
     }
 

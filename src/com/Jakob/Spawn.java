@@ -20,22 +20,37 @@ public class Spawn {
     public void tick() {
         scoreKeep++;
 
-        if (scoreKeep >= 100) {
+        if (scoreKeep >= 250) {
 
             scoreKeep = 0;
             hud.setLevel(hud.getLevel() + 1);
             if (hud.getLevel() == 2) {
-                new BasicEnemy(random.nextInt(Game.WIDTH-10), random.nextInt(Game.HEIGHT-10), ID.BasicEnemy, handler);
+                new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
             } else if (hud.getLevel() == 3) {
-                new BasicEnemy(random.nextInt(Game.WIDTH-10), random.nextInt(Game.HEIGHT-10), ID.BasicEnemy, handler);
+                new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
+            } else if (hud.getLevel() == 4) {
+                new FastEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
+            } else if (hud.getLevel() == 5) {
+               new SmartEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.SmartEnemy, handler);
             }
-            else if (hud.getLevel() == 4){
-                new FastEnemy(random.nextInt(Game.WIDTH-10), random.nextInt(Game.HEIGHT-10), ID.BasicEnemy, handler);
+            else if (hud.getLevel() == 6) {
+                new FastEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.FastEnemy, handler);
             }
+            else if (hud.getLevel() == 7) {
+                new FastEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.FastEnemy, handler);
+            }
+            else if (hud.getLevel() == 8) {
+                new SmartEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.SmartEnemy, handler);
+            }
+            else if (hud.getLevel() == 10) {
+                handler.clearEnemies();
+                new BossEnemy((Game.WIDTH /2) - 48, -140, ID.BossEnemy, handler);
+            }
+
+
+
 
         }
-
-
     }
 }
 

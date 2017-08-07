@@ -20,7 +20,7 @@ public class Player extends GameObject {
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 32, 32);
+        return new Rectangle((int)x, (int)y, 32, 32);
     }
 
     @Override
@@ -41,16 +41,22 @@ public class Player extends GameObject {
 
             GameObject tempObject = handler.gameObject.get(i);
 
-            if (tempObject.getId() == ID.BasicEnemy ||tempObject.getId() == ID.FastEnemy) {
+            if (tempObject.getId() == ID.BasicEnemy ||tempObject.getId() == ID.FastEnemy|| tempObject.getId() ==ID.SmartEnemy || tempObject.getId() ==ID.BossEnemy) {
 
                 if (getBounds().intersects(tempObject.getBounds())) {
+                    if(tempObject.getId() == ID.BossEnemy)
+                    {
+                        HUD.HEALTH = 0;
+                    }
                     //collision code
-                    HUD.HEALTH -= 2;
+                    else
+                        HUD.HEALTH -= 2;
 
+                }
                 }
             }
         }
-    }
+
 
     @Override
     public void render(Graphics graphics) {
@@ -62,7 +68,7 @@ public class Player extends GameObject {
 
         if (id == ID.Player) {
             graphics.setColor(Color.white);
-            graphics.fillRect(x, y, 32, 32);
+            graphics.fillRect((int)x, (int)y, 32, 32);
         } /*else if (id == ID.Player2) {
             graphics.setColor(Color.cyan);
             graphics.fillRect(x, y, 32, 32);

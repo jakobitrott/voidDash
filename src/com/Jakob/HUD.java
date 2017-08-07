@@ -8,13 +8,13 @@ import java.awt.*;
 public class HUD {
 
     public static int HEALTH = 100;
-    private int greenHealth = 255;
+    private float greenHealth = 255;
     private int score = 0;
     private int level = 1;
 
     public void tick() {
-        HEALTH = Game.clamp(HEALTH, 0, 100);
-        greenHealth = Game.clamp(greenHealth, 0, 255);
+        HEALTH = (int)Game.clamp(HEALTH, 0, 100);
+        greenHealth = (int)Game.clamp(greenHealth, 0, 255);
         greenHealth = HEALTH * 2;
         score++;
     }
@@ -26,8 +26,8 @@ public class HUD {
         graphics.fillRect(15, 15, 200, 32);
 
         //Health
-        graphics.setColor(new Color(75, greenHealth, 0));
-        graphics.fillRect(15, 15, HEALTH * 2, 32);
+        graphics.setColor(new Color(75, (int)greenHealth, 0));
+        graphics.fillRect(15, 15, (int)HEALTH * 2, 32);
 
         //draw border around health
         graphics.setColor(Color.WHITE);
