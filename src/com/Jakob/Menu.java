@@ -29,20 +29,18 @@ public class Menu extends MouseAdapter {
 
             //Play
             if (mouseOver(mouseX, mouseY, 220, 150, 200, 64)) {
-                game.gameState = Game.STATE.Game;
-
-                new Player((Game.WIDTH / 2 - 32), (Game.HEIGHT / 2 - 32), ID.Player, handler);
-                handler.clearEnemies();
-
-                new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
-
+                game.gameState = Game.STATE.Select;
                 AudioPlayer.getSound("menu_sound").play();
+                return;
             }
+
 
             //help button
             if (mouseOver(mouseX, mouseY, 220, 250, 200, 64)) {
                 game.gameState = Game.STATE.Help;
                 AudioPlayer.getSound("menu_sound").play();
+                //back button for help
+
             }
 
 
@@ -53,7 +51,61 @@ public class Menu extends MouseAdapter {
 
             }
         }
-        //back button for help
+
+
+        if (game.gameState == Game.STATE.Select) {
+
+
+            //Normal
+            if (mouseOver(mouseX, mouseY, 220, 150, 200, 64)) {
+                game.gameState = Game.STATE.Game;
+
+                new Player((Game.WIDTH / 2 - 32), (Game.HEIGHT / 2 - 32), ID.Player, handler);
+                handler.clearEnemies();
+
+                new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
+
+
+                game.difficulty = 0;
+                AudioPlayer.getSound("menu_sound").play();
+            }
+
+
+            //hard button
+            if (mouseOver(mouseX, mouseY, 220, 250, 200, 64)) {
+                game.gameState = Game.STATE.Game;
+                new Player((Game.WIDTH / 2 - 32), (Game.HEIGHT / 2 - 32), ID.Player, handler);
+                handler.clearEnemies();
+
+                new HardEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
+                game.difficulty = 1;
+                AudioPlayer.getSound("menu_sound").play();
+            }
+
+            //back button
+            if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
+                if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
+                    game.gameState = Game.STATE.Menu;
+                    AudioPlayer.getSound("menu_sound").play();
+                    return;
+
+                }
+            }
+
+        }
+
+            if (game.gameState == Game.STATE.End) {
+
+                if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
+                    game.gameState = Game.STATE.Menu;
+                    AudioPlayer.getSound("menu_sound").play();
+                    hud.setLevel(1);
+                    hud.setScore(0);
+
+
+                }
+            }
+
         if (game.gameState == Game.STATE.Help) {
             if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
                 game.gameState = Game.STATE.Menu;
@@ -61,21 +113,6 @@ public class Menu extends MouseAdapter {
                 return;
             }
         }
-
-        if (game.gameState == Game.STATE.End) {
-
-            if (mouseOver(mouseX, mouseY, 220, 350, 200, 64)) {
-                game.gameState = Game.STATE.Game;
-                AudioPlayer.getSound("menu_sound").play();
-                hud.setLevel(1);
-                hud.setScore(0);
-                new Player((Game.WIDTH / 2 - 32), (Game.HEIGHT / 2 - 32), ID.Player, handler);
-                handler.clearEnemies();
-                new BasicEnemy(random.nextInt(Game.WIDTH - 10), random.nextInt(Game.HEIGHT - 10), ID.BasicEnemy, handler);
-
-            }
-        }
-
 
     }
 
@@ -164,6 +201,30 @@ public class Menu extends MouseAdapter {
             graphics.drawRect(220, 350, 200, 64);
             graphics.drawString("Try Again?", 245, 395);
 
+        }else if (game.gameState == Game.STATE.Select) {
+
+            Font font = new Font("arial", 1, 50);
+            Font font2 = new Font("arial", 1, 40);
+
+            graphics.setFont(font);
+            graphics.setColor(Color.white);
+            graphics.drawString("Select Difficulty", 150, 80);
+
+            graphics.setFont(font2);
+            graphics.setColor(Color.white);
+
+
+            graphics.setColor(Color.white);
+            graphics.drawRect(220, 150, 200, 64);
+            graphics.drawString("Normal", 250, 195);
+
+            graphics.setColor(Color.white);
+            graphics.drawRect(220, 250, 200, 64);
+            graphics.drawString("Hard", 280, 295);
+
+            graphics.setColor(Color.white);
+            graphics.drawRect(220, 350, 200, 64);
+            graphics.drawString("Back", 280, 395);
         }
 
 
