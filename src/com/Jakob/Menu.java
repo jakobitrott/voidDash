@@ -13,11 +13,15 @@ public class Menu extends MouseAdapter {
     private Handler handler;
     private Random random = new Random();
     private HUD hud;
+    private Score score;
+    private Shop shop;
 
-    public Menu(Game game, Handler handler, HUD hud) {
+    public Menu(Game game, Handler handler, HUD hud,Score score,Shop shop) {
         this.game = game;
         this.handler = handler;
         this.hud = hud;
+        this.score = score;
+        this.shop = shop;
     }
 
     public void mousePressed(MouseEvent event) {
@@ -100,7 +104,12 @@ public class Menu extends MouseAdapter {
                     game.gameState = Game.STATE.Menu;
                     AudioPlayer.getSound("menu_sound").play();
                     hud.setLevel(1);
-                    hud.setScore(0);
+                    score.setScore(0);
+                    shop.setBoxOne(100);
+                    shop.setBoxTwo(100);
+                    shop.setBoxThree(100);
+                    hud.bounds = 0;
+
 
 
                 }
@@ -192,7 +201,7 @@ public class Menu extends MouseAdapter {
 
             graphics.setFont(font2);
             graphics.setColor(Color.red);
-            graphics.drawString("You lost with a score of: " + hud.getScore() , 120, 200);
+            graphics.drawString("You lost with a score of: " + score.getScore() , 120, 200);
 
 
 

@@ -13,14 +13,35 @@ public class Shop extends MouseAdapter {
     Handler handler;
     HUD hud;
     Game game;
-    private int boxOne = 1000;
-    private int boxTwo = 1000;
-    private int boxThree = 500;
+    Score score;
+    private int boxOne= 100;
+    private int boxTwo=100;
+    private int boxThree=100;
 
-    public Shop(Handler handler, HUD hud, Game game) {
+
+    public void setBoxOne(int boxOne) {
+        this.boxOne = boxOne;
+    }
+
+
+
+    public void setBoxTwo(int boxTwo) {
+        this.boxTwo = boxTwo;
+    }
+
+
+
+    public void setBoxThree(int boxThree) {
+        this.boxThree = boxThree;
+    }
+
+
+    public Shop(Handler handler, HUD hud, Game game, Score score) {
         this.handler = handler;
         this.hud = hud;
         this.game = game;
+        this.score = score;
+
     }
 
     public void render(Graphics graphics) {
@@ -47,7 +68,7 @@ public class Shop extends MouseAdapter {
         graphics.drawRect(400, 100, 100, 80);
 
 
-        graphics.drawString("SCORE " + hud.getScore(), Game.WIDTH / 2 - 50, 300);
+        graphics.drawString("SCORE " + score.getScore(), Game.WIDTH / 2 - 50, 300);
         graphics.drawString("Press space to go back", Game.WIDTH / 2 - 50, 330);
 
 
@@ -62,9 +83,10 @@ public class Shop extends MouseAdapter {
             //boxOne
             if (mouseX >= 100 && mouseX <= 200) {
                 if (mouseY >= 100 && mouseY <= 180) {
-                    if (hud.getScore() >= boxOne) {
-                        hud.setScore(hud.getScore() - boxOne);
-                        boxOne += 2000;
+                    System.out.println("boxThree");
+                    if (score.getScore() >= boxOne) {
+                        score.setScore(score.getScore() - boxOne);
+                        boxOne += 20;
                         hud.bounds += 20;
                         hud.HEALTH = (100 + (hud.bounds / 2));
                     }
@@ -73,16 +95,21 @@ public class Shop extends MouseAdapter {
             //boxTwo
             if (mouseX >= 250 && mouseX <= 350) {
                 if (mouseY >= 100 && mouseY <= 180) {
-                    if (hud.getScore() >= boxTwo) {
-                        hud.setScore(hud.getScore() - boxTwo);
-                        boxTwo += 2000;
+                    System.out.println("boxThree");
+                    if (score.getScore() >= boxTwo) {
+                        score.setScore(score.getScore() - boxTwo);
+                        boxTwo += 20;
                         handler.speed++;
                     }
                 }
+            }
                 //boxThree
                 if (mouseX >= 400 && mouseX <= 500) {
                     if (mouseY >= 100 && mouseY <= 180) {
-                        hud.setScore(hud.getScore() - boxThree);
+                        System.out.println("boxThree");
+                        if (score.getScore() >= boxTwo)
+                        {
+                        score.setScore(score.getScore() - boxThree);
                         hud.HEALTH = (100 + (hud.bounds / 2));
                     }
                 }
@@ -91,3 +118,4 @@ public class Shop extends MouseAdapter {
         }
     }
 }
+

@@ -9,14 +9,22 @@ public class HUD {
     public int bounds = 0;
     public static int HEALTH = 100;
     private float greenHealth = 255;
-    private int score = 0;
     private int level = 1;
+    private int playerScore;
+    private Score score;
+
+    public HUD(Score score) {
+        this.score = score;
+        playerScore = 0;
+    }
 
     public void tick() {
         HEALTH = (int) Game.clamp(HEALTH, 0, 100+(bounds/2));
         greenHealth = HEALTH * 2;
         greenHealth = (int) Game.clamp(greenHealth, 0, 255);
-        score++;
+        playerScore = score.getScore();
+        score.setScore(playerScore + 1);
+
     }
 
     public void render(Graphics graphics) {
@@ -34,18 +42,12 @@ public class HUD {
         graphics.drawRect(15, 15, 200+bounds, 32);
 
         //draw level and score
-        graphics.drawString("Score: " + score, 15, 64);
+        graphics.drawString("Score: " + playerScore, 15, 64);
         graphics.drawString("Level: " + level, 15, 80);
         graphics.drawString("Space for Shop", 15, 94);
     }
 
-    public int getScore() {
-        return score;
-    }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     public int getLevel() {
         return level;

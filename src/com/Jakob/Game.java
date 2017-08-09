@@ -8,6 +8,24 @@ import java.util.Random;
  * VOID DASH
  * Created by jakob on 02/08/2017.
  */
+
+
+/*
+*   TODO
+*
+*   - Add some sort of highScore system
+*   - Add more levels/bosses
+*   - Clean up code
+*   - Understand code
+*   - Generate dependency diagram
+*   - Export game
+*   - Upload to portfolio website
+
+* */
+
+
+
+
 public class Game extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 1550691097823471818L;
@@ -23,6 +41,7 @@ public class Game extends Canvas implements Runnable {
     private Spawn spawner;
     private Menu menu;
     private Shop shop;
+    private Score score;
 
     public static boolean paused = false;
     public int difficulty = 0;
@@ -40,15 +59,16 @@ public class Game extends Canvas implements Runnable {
         End
     }
 
-    ;
+
 
 
     public Game() {
 
         handler = new Handler(); //
-        hud = new HUD();
-        shop = new Shop(handler,hud,this);
-        menu = new Menu(this, handler, hud);
+        score = new Score();
+        hud = new HUD(score);
+        shop = new Shop(handler,hud,this,score);
+        menu = new Menu(this, handler, hud,score,shop);
 
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(menu);
